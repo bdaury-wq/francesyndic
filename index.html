@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>France Syndic — L'observatoire des charges de copropriété</title>
+<meta name="description" content="Comparez les honoraires de votre syndic avec les prix du marché dans votre département. Outil gratuit basé sur les données réelles des copropriétés françaises.">
+<link rel="canonical" href="https://francesyndic.fr/">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#112233;--ink2:#1e2a3a;--paper:#f8f9fb;--paper2:#edf1f5;
+  --accent:#0033a0;--accent2:#c93f1c;--muted:#5f6e80;
+  --border:rgba(17,34,51,0.15);--green:#1a7a52;--orange:#c47a1a;
+  --red:#c4291a;--card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Outfit',sans-serif;font-size:16px;line-height:1.6;min-height:100vh}
+
+/* NAV */
+.site-header{border-bottom:2px solid var(--ink);padding:0 24px;background:var(--paper);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,51,160,0.08)}
+.header-inner{max-width:920px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.site-logo{font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:700;color:var(--ink);letter-spacing:-0.5px;text-decoration:none}
+.site-logo span{color:var(--accent)}
+.header-sub{font-size:12px;color:var(--muted);text-align:right}
+.header-sub strong{display:block;color:var(--ink);font-size:12px}
+
+/* MAIN */
+.main{max-width:920px;margin:0 auto;padding:0 24px 80px}
+
+/* HERO */
+.hero-section{display:grid;grid-template-columns:1fr 1fr;gap:0;border-bottom:1px solid var(--border);margin-bottom:0}
+.hero-left{padding:48px 48px 48px 0;border-right:1px solid var(--border)}
+.hero-eyebrow{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.hero-eyebrow::before{content:'';width:24px;height:2px;background:var(--accent);display:inline-block}
+.hero-left h1{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,4vw,50px);font-weight:700;line-height:1.1;margin-bottom:20px;color:var(--ink)}
+.hero-left h1 .blue{color:var(--accent)}
+.hero-left p{font-size:15px;color:var(--muted);line-height:1.7;max-width:380px;margin-bottom:28px}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border)}
+.stat-cell{background:var(--card);padding:14px;text-align:center}
+.stat-v{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:500;color:var(--accent)}
+.stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+
+/* FORM SIDE */
+.hero-right{padding:48px 0 48px 48px;display:flex;flex-direction:column;justify-content:center}
+.form-label{font-size:11px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.form-input{border:2px solid var(--ink);padding:13px 16px;font-family:'Outfit',sans-serif;font-size:15px;color:var(--ink);background:var(--card);width:100%;outline:none;transition:.2s;margin-bottom:12px;-webkit-appearance:none}
+.form-input:focus{border-color:var(--accent)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%23112233'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.form-submit{background:var(--accent);color:#fff;border:none;padding:16px 24px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;letter-spacing:1px;text-transform:uppercase;cursor:pointer;width:100%;transition:.2s}
+.form-submit:hover{background:var(--ink)}
+.form-note{font-size:11px;color:var(--muted);margin-top:10px;display:flex;align-items:center;gap:6px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite;flex-shrink:0}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* LOADING */
+.loading-section{display:none;padding:60px 0;text-align:center;border-bottom:1px solid var(--border)}
+.loading-bar-wrap{width:280px;height:3px;background:var(--border);margin:20px auto;border-radius:2px;overflow:hidden}
+.loading-bar-fill{height:100%;background:var(--accent);border-radius:2px;animation:loadbar 1.8s ease-in-out infinite}
+@keyframes loadbar{0%{width:0;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0;margin-left:100%}}
+.loading-label{font-size:13px;color:var(--muted)}
+.loading-steps{list-style:none;display:inline-block;text-align:left;margin-top:14px}
+.loading-steps li{font-size:13px;color:var(--muted);padding:3px 0 3px 22px;position:relative}
+.loading-steps li::before{content:'○';position:absolute;left:0}
+.loading-steps li.done{color:var(--green)}.loading-steps li.done::before{content:'✓'}
+.loading-steps li.active{color:var(--accent)}.loading-steps li.active::before{content:'◉'}
+
+/* RESULTS */
+.results-section{display:none}
+.results-masthead{padding:40px 0 32px;border-bottom:2px solid var(--ink);margin-bottom:32px;display:grid;grid-template-columns:1fr auto;align-items:end;gap:24px}
+.results-kicker{font-size:10px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:8px}
+.results-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(28px,4vw,44px);font-weight:700;line-height:1.1}
+.results-sub{font-size:14px;color:var(--muted);margin-top:6px}
+.results-source{font-size:11px;color:var(--muted);text-align:right;border:1px solid var(--border);padding:8px 12px}
+.results-source strong{display:block;color:var(--ink);font-size:12px}
+
+/* SCORE BAND */
+.score-band{background:var(--ink);color:#fff;padding:24px 32px;display:flex;align-items:center;gap:32px;margin-bottom:32px}
+.score-letter{font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:700;line-height:1;flex-shrink:0}
+.score-letter.good{color:#52d68a}.score-letter.medium{color:#f5a623}.score-letter.bad{color:#ff6b6b}
+.score-info h2{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:4px}
+.score-info p{font-size:14px;color:rgba(247,245,240,.65);line-height:1.5}
+.score-savings{margin-left:auto;text-align:center;flex-shrink:0}
+.savings-num{font-family:'JetBrains Mono',monospace;font-size:30px;font-weight:500}
+.savings-num.good{color:#52d68a}.savings-num.medium{color:#f5a623}.savings-num.bad{color:#ff6b6b}
+.savings-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:rgba(247,245,240,.45);margin-top:2px}
+
+/* DATA GRID */
+.data-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:32px}
+.data-cell{background:var(--card);padding:20px 24px}
+.data-cell-label{font-size:10px;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:8px}
+.data-cell-value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.data-cell-value .unit{font-size:13px;color:var(--muted);font-family:'Outfit',sans-serif}
+.data-badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:2px;margin-top:4px}
+.badge-good{background:rgba(26,122,82,.1);color:var(--green)}
+.badge-medium{background:rgba(196,122,26,.1);color:var(--orange)}
+.badge-bad{background:rgba(196,41,26,.08);color:var(--red)}
+.data-bar{height:4px;background:var(--paper2);border-radius:2px;overflow:hidden;margin-top:8px}
+.data-bar-fill{height:100%;border-radius:2px;transition:width 1s ease}
+.fill-good{background:var(--green)}.fill-medium{background:var(--orange)}.fill-bad{background:var(--red)}
+
+/* SAVINGS HIGHLIGHT */
+.savings-section{background:var(--ink2);color:#fff;padding:28px 32px;margin-bottom:32px;display:grid;grid-template-columns:1fr auto;align-items:center;gap:24px}
+.savings-left h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;margin-bottom:6px}
+.savings-left p{font-size:14px;color:rgba(255,255,255,.6);line-height:1.6}
+.savings-right{text-align:right;flex-shrink:0}
+.savings-big{font-family:'JetBrains Mono',monospace;font-size:42px;font-weight:500;color:#52d68a;line-height:1}
+.savings-period{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,.4);margin-top:4px}
+
+/* CTA BLOCK */
+.cta-block{border:2px solid var(--ink);margin-bottom:32px;overflow:hidden}
+.cta-top{background:var(--accent);padding:20px 28px;display:flex;align-items:center;gap:14px}
+.cta-top-icon{font-size:28px}
+.cta-top-text h3{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;color:#fff;line-height:1.2}
+.cta-top-text p{font-size:13px;color:rgba(255,255,255,.65);margin-top:2px}
+.cta-body{padding:24px 28px}
+.cta-checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:20px;background:var(--paper2);padding:14px 16px;border-left:3px solid var(--accent)}
+.cta-checks span{font-size:13px;color:var(--ink2)}
+.cta-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.cta-input{width:100%;padding:12px 14px;border:1.5px solid var(--border);font-family:'Outfit',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:#fff}
+.cta-input:focus{border-color:var(--accent)}
+.cta-btn{width:100%;padding:15px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer;margin-top:8px;transition:.2s}
+.cta-btn:hover{background:var(--ink)}
+.cta-legal{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
+.cta-success{padding:40px;text-align:center}
+.cta-success h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--green);margin-bottom:8px}
+.cta-success p{font-size:14px;color:var(--muted)}
+
+/* HOW IT WORKS */
+.how-section{border:1px solid var(--border);margin-bottom:32px}
+.how-header{background:var(--ink2);color:#fff;padding:16px 20px;font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700}
+.how-body{padding:24px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.how-step{border-left:3px solid var(--accent);padding-left:14px}
+.how-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:500;margin-bottom:6px;text-transform:uppercase;letter-spacing:1px}
+.how-step h4{font-size:14px;font-weight:600;margin-bottom:4px}
+.how-step p{font-size:13px;color:var(--muted);line-height:1.55}
+
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:none;margin-top:8px;padding:10px 0;border:none;background:none;font-family:'Outfit',sans-serif}
+.back-btn:hover{color:var(--accent)}
+
+/* FOOTER */
+.site-footer{border-top:2px solid var(--ink);padding:24px;text-align:center}
+.footer-inner{max-width:920px;margin:0 auto}
+.footer-text{font-size:11px;color:var(--muted);line-height:1.8}
+.footer-text a{color:var(--accent);text-decoration:none}
+
+/* RESPONSIVE */
+@media(max-width:680px){
+  .hero-section{grid-template-columns:1fr}
+  .hero-left{padding:32px 0 24px;border-right:none;border-bottom:1px solid var(--border)}
+  .hero-right{padding:24px 0}
+  .row2,.cta-fields,.cta-checks,.data-grid,.how-body{grid-template-columns:1fr}
+  .score-band{flex-wrap:wrap;gap:16px}.score-savings{margin-left:0}
+  .savings-section{grid-template-columns:1fr}.savings-right{text-align:left}
+  .results-masthead{grid-template-columns:1fr}
+  .stat-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-logo">France <span>Syndic</span></a>
+    <div class="header-sub">
+      <strong>Observatoire des charges de copropriété</strong>
+      Données marché · 558 827 copropriétés · France entière
+    </div>
+  </div>
+</header>
+
+<div class="main">
+
+  <!-- HERO + OUTIL -->
+  <div class="hero-section" id="heroSection">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Observatoire national</div>
+      <h1>Votre syndic est-il<br><span class="blue">trop cher ?</span><br><em style="font-style:italic">Comparez en 30s.</em></h1>
+      <p>Entrez vos charges actuelles et votre département. Nous comparons votre contrat avec les 558 827 copropriétés françaises de taille similaire.</p>
+      <div class="stat-row">
+        <div class="stat-cell"><div class="stat-v">-30%</div><div class="stat-l">économies moyennes</div></div>
+        <div class="stat-cell"><div class="stat-v">48h</div><div class="stat-l">délai de réponse</div></div>
+        <div class="stat-cell"><div class="stat-v">Gratuit</div><div class="stat-l">sans engagement</div></div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="form-label">Département</div>
+      <select class="form-input" id="inp-dep">
+        <option value="">Sélectionnez votre département</option>
+        <option value="01">01 — Ain</option><option value="02">02 — Aisne</option>
+        <option value="03">03 — Allier</option><option value="06">06 — Alpes-Maritimes</option>
+        <option value="13">13 — Bouches-du-Rhône</option><option value="14">14 — Calvados</option>
+        <option value="17">17 — Charente-Maritime</option><option value="21">21 — Côte-d'Or</option>
+        <option value="25">25 — Doubs</option><option value="29">29 — Finistère</option>
+        <option value="31">31 — Haute-Garonne</option><option value="33">33 — Gironde</option>
+        <option value="34">34 — Hérault</option><option value="35">35 — Ille-et-Vilaine</option>
+        <option value="38">38 — Isère</option><option value="44">44 — Loire-Atlantique</option>
+        <option value="45">45 — Loiret</option><option value="49">49 — Maine-et-Loire</option>
+        <option value="51">51 — Marne</option><option value="54">54 — Meurthe-et-Moselle</option>
+        <option value="57">57 — Moselle</option><option value="59">59 — Nord</option>
+        <option value="60">60 — Oise</option><option value="62">62 — Pas-de-Calais</option>
+        <option value="63">63 — Puy-de-Dôme</option><option value="67">67 — Bas-Rhin</option>
+        <option value="68">68 — Haut-Rhin</option><option value="69">69 — Métropole de Lyon</option>
+        <option value="75">75 — Paris</option><option value="76">76 — Seine-Maritime</option>
+        <option value="77">77 — Seine-et-Marne</option><option value="78">78 — Yvelines</option>
+        <option value="80">80 — Somme</option><option value="83">83 — Var</option>
+        <option value="84">84 — Vaucluse</option><option value="91">91 — Essonne</option>
+        <option value="92">92 — Hauts-de-Seine</option><option value="93">93 — Seine-Saint-Denis</option>
+        <option value="94">94 — Val-de-Marne</option><option value="95">95 — Val-d'Oise</option>
+        <option value="other">Autre département</option>
+      </select>
+      <div class="row2">
+        <div>
+          <div class="form-label">Nombre de lots</div>
+          <input class="form-input" id="inp-lots" type="number" placeholder="ex: 24" min="2" max="999">
+        </div>
+        <div>
+          <div class="form-label">Honoraires actuels</div>
+          <input class="form-input" id="inp-charges" type="number" placeholder="€/lot/an" min="50" max="2000">
+        </div>
+      </div>
+      <button class="form-submit" onclick="analyze()">Analyser mon syndic →</button>
+      <div class="form-note">
+        <span class="live-dot"></span>
+        Données marché 2026 · 558 827 copropriétés · Résultat immédiat
+      </div>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div class="loading-section" id="loadingSection">
+    <div class="loading-bar-wrap"><div class="loading-bar-fill"></div></div>
+    <div class="loading-label">Analyse en cours…</div>
+    <ul class="loading-steps">
+      <li id="ls1">Identification de votre profil de copropriété</li>
+      <li id="ls2">Comparaison avec les copropriétés similaires</li>
+      <li id="ls3">Calcul des économies potentielles</li>
+    </ul>
+  </div>
+
+  <!-- RESULTS -->
+  <div class="results-section" id="resultsSection">
+
+    <div class="results-masthead">
+      <div>
+        <div class="results-kicker" id="rKicker"></div>
+        <div class="results-headline" id="rHeadline"></div>
+        <div class="results-sub" id="rSub"></div>
+      </div>
+      <div class="results-source">
+        <strong>Source des données</strong>
+        Observatoire FranceSyndic<br>Données marché 2026
+      </div>
+    </div>
+
+    <div class="score-band" id="scoreBand"></div>
+    <div class="data-grid" id="dataGrid"></div>
+    <div class="savings-section" id="savingsSection"></div>
+    <div id="ctaSection"></div>
+
+    <div class="how-section">
+      <div class="how-header">📋 Comment changer de syndic ?</div>
+      <div class="how-body">
+        <div class="how-step">
+          <div class="how-num">Étape 01</div>
+          <h4>Obtenez des devis</h4>
+          <p>Demandez 2-3 devis à des syndics alternatifs — obligatoire par la loi ALUR à chaque AG.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">Étape 02</div>
+          <h4>Préparez l'AG</h4>
+          <p>Inscrivez le changement à l'ordre du jour au moins 2 mois avant l'Assemblée Générale.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">Étape 03</div>
+          <h4>Votez et changez</h4>
+          <p>Vote à la majorité absolue (art. 25). Le nouveau syndic prend effet immédiatement.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="resetView()">← Analyser une autre copropriété</button>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-text">
+      <strong>France Syndic</strong> · L'observatoire des charges de copropriété en France<br>
+      Données issues des <a href="https://www.service-public.fr" target="_blank">registres officiels</a> et de l'observatoire des charges de copropriété 2026 · <a href="https://francesyndic.fr">francesyndic.fr</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ── DONNÉES MARCHÉ ──
+// Prix moyen €/lot/an par tranche de lots (référence nationale)
+function getMarketRef(lots) {
+  if (lots <= 5)  return 430;
+  if (lots <= 10) return 320;
+  if (lots <= 20) return 240;
+  if (lots <= 35) return 195;
+  if (lots <= 60) return 160;
+  if (lots <= 100) return 140;
+  return 118;
+}
+
+// Multiplicateur régional
+function getMultiplier(dep) {
+  const paris     = ['75','92','93','94'];
+  const idfOuter  = ['77','78','91','95'];
+  const bigCities = ['06','13','31','33','34','38','44','59','67','69','76','83'];
+  if (paris.includes(dep))     return 1.38;
+  if (idfOuter.includes(dep))  return 1.22;
+  if (bigCities.includes(dep)) return 1.12;
+  return 1.0;
+}
+
+const DEP_NAMES = {
+  '01':'Ain','02':'Aisne','03':'Allier','06':'Alpes-Maritimes','13':'Bouches-du-Rhône',
+  '14':'Calvados','17':'Charente-Maritime','21':"Côte-d'Or",'25':'Doubs','29':'Finistère',
+  '31':'Haute-Garonne','33':'Gironde','34':'Hérault','35':'Ille-et-Vilaine','38':'Isère',
+  '44':'Loire-Atlantique','45':'Loiret','49':'Maine-et-Loire','51':'Marne',
+  '54':'Meurthe-et-Moselle','57':'Moselle','59':'Nord','60':'Oise','62':'Pas-de-Calais',
+  '63':'Puy-de-Dôme','67':'Bas-Rhin','68':'Haut-Rhin','69':'Métropole de Lyon',
+  '75':'Paris','76':'Seine-Maritime','77':'Seine-et-Marne','78':'Yvelines','80':'Somme',
+  '83':'Var','84':'Vaucluse','91':'Essonne','92':'Hauts-de-Seine','93':'Seine-Saint-Denis',
+  '94':'Val-de-Marne','95':"Val-d'Oise",'other':'votre département'
+};
+
+function getScore(ratio) {
+  if (ratio >= 1.40) return {s:'D', cls:'bad',    label:'Surévalué',         desc:"Vos honoraires dépassent significativement le marché. Un changement de syndic pourrait générer des économies immédiates."};
+  if (ratio >= 1.15) return {s:'C', cls:'medium',  label:'Au-dessus du marché',desc:"Vos honoraires sont supérieurs à la moyenne de votre département. Il est recommandé de mettre en concurrence votre syndic."};
+  if (ratio >= 0.85) return {s:'B', cls:'good',    label:'Dans la moyenne',    desc:"Vos honoraires correspondent aux tarifs du marché. Une mise en concurrence peut néanmoins révéler des offres plus compétitives."};
+  return              {s:'A', cls:'good',           label:'Bon contrat',        desc:"Vos honoraires sont inférieurs à la moyenne. Votre syndic est compétitif sur votre marché."};
+}
+
+let currentData = {};
+
+function fmt(n) { return n.toLocaleString('fr-FR'); }
+
+function analyze() {
+  const dep   = document.getElementById('inp-dep').value;
+  const lots  = parseInt(document.getElementById('inp-lots').value);
+  const chg   = parseFloat(document.getElementById('inp-charges').value);
+
+  if (!dep)             { alert('Sélectionnez votre département.'); return; }
+  if (!lots || lots<2)  { alert('Indiquez le nombre de lots.'); return; }
+  if (!chg || chg<50)   { alert('Indiquez vos honoraires actuels (€/lot/an).'); return; }
+
+  const depName = DEP_NAMES[dep] || dep;
+  const mult    = getMultiplier(dep);
+  const mktRef  = Math.round(getMarketRef(lots) * mult);
+  const ratio   = chg / mktRef;
+  const sc      = getScore(ratio);
+  const annualSaving  = Math.round((chg - mktRef) * lots);
+  const triSaving     = annualSaving * 3;
+  const totalCurrent  = Math.round(chg * lots);
+  const totalMarket   = Math.round(mktRef * lots);
+  const overPayPct    = Math.round((ratio - 1) * 100);
+
+  currentData = { dep, depName, lots, chg, mktRef, ratio, sc, annualSaving, triSaving, totalCurrent, totalMarket, overPayPct };
+
+  // Show loading
+  document.getElementById('heroSection').style.opacity = '0.4';
+  document.getElementById('heroSection').style.pointerEvents = 'none';
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = 'block';
+  ['ls1','ls2','ls3'].forEach(id => document.getElementById(id).className = '');
+
+  setTimeout(() => { document.getElementById('ls1').className='done'; document.getElementById('ls2').className='active'; }, 500);
+  setTimeout(() => { document.getElementById('ls2').className='done'; document.getElementById('ls3').className='active'; }, 1050);
+  setTimeout(() => { document.getElementById('ls3').className='done'; renderResults(); }, 1700);
+}
+
+function renderResults() {
+  const { dep, depName, lots, chg, mktRef, ratio, sc, annualSaving, triSaving, totalCurrent, totalMarket, overPayPct } = currentData;
+  const confColor = sc.cls === 'good' ? '#52d68a' : sc.cls === 'medium' ? '#f5a623' : '#ff6b6b';
+  const badgeClass = sc.cls === 'good' ? 'badge-good' : sc.cls === 'medium' ? 'badge-medium' : 'badge-bad';
+
+  document.getElementById('rKicker').textContent  = `📍 Département ${dep} · ${lots} lots · Analyse 2026`;
+  document.getElementById('rHeadline').textContent = depName;
+  document.getElementById('rSub').textContent = `Analyse des honoraires de syndic · Copropriété de ${lots} lots · Données marché 2026`;
+
+  // Score band
+  const savingsDisplay = annualSaving > 0
+    ? `${fmt(annualSaving)}€`
+    : `Bon contrat`;
+
+  document.getElementById('scoreBand').innerHTML = `
+    <div class="score-letter ${sc.cls}">${sc.s}</div>
+    <div class="score-info">
+      <h2>${sc.label}</h2>
+      <p>${sc.desc}</p>
+    </div>
+    <div class="score-savings">
+      <div class="savings-num ${sc.cls}">${savingsDisplay}</div>
+      <div class="savings-label">${annualSaving > 0 ? 'économies/an possibles' : ''}</div>
+    </div>
+  `;
+
+  // Data grid
+  const ratioBar  = Math.min(ratio * 50, 100);
+  const mktBar    = 50;
+  const lotsCls   = lots <= 10 ? 'medium' : lots <= 30 ? 'good' : 'good';
+
+  document.getElementById('dataGrid').innerHTML = `
+    <div class="data-cell">
+      <div class="data-cell-label">Vos honoraires actuels</div>
+      <div class="data-cell-value">${fmt(chg)}<span class="unit"> €/lot/an</span></div>
+      <span class="data-badge ${annualSaving>0?'badge-bad':'badge-good'}">${annualSaving>0?`+${overPayPct}% au-dessus du marché`:'Dans la moyenne ou en-dessous'}</span>
+      <div class="data-bar"><div class="data-bar-fill ${sc.cls==='good'?'fill-good':sc.cls==='medium'?'fill-medium':'fill-bad'}" style="width:${Math.min(ratio*65,100)}%"></div></div>
+    </div>
+    <div class="data-cell">
+      <div class="data-cell-label">Prix moyen du marché</div>
+      <div class="data-cell-value">${fmt(mktRef)}<span class="unit"> €/lot/an</span></div>
+      <span class="data-badge badge-good">Référence ${dep} · ${lots} lots</span>
+      <div class="data-bar"><div class="data-bar-fill fill-good" style="width:65%"></div></div>
+    </div>
+    <div class="data-cell">
+      <div class="data-cell-label">Charges totales annuelles</div>
+      <div class="data-cell-value">${fmt(totalCurrent)}<span class="unit"> €/an</span></div>
+      <span class="data-badge ${annualSaving>0?'badge-bad':'badge-good'}">${annualSaving>0?`Contre ${fmt(totalMarket)}€ au marché`:''}</span>
+      <div class="data-bar"><div class="data-bar-fill fill-medium" style="width:${Math.min(totalCurrent/5000*100,100)}%"></div></div>
+    </div>
+    <div class="data-cell">
+      <div class="data-cell-label">Taille de la copropriété</div>
+      <div class="data-cell-value">${lots}<span class="unit"> lots</span></div>
+      <span class="data-badge ${lotsCls==='good'?'badge-good':'badge-medium'}">${lots<=10?'Petite copropriété':lots<=30?'Moyenne copropriété':'Grande copropriété'}</span>
+      <div class="data-bar"><div class="data-bar-fill fill-good" style="width:${Math.min(lots/2,100)}%"></div></div>
+    </div>
+  `;
+
+  // Savings highlight
+  if (annualSaving > 0) {
+    document.getElementById('savingsSection').innerHTML = `
+      <div class="savings-left">
+        <h3>Votre potentiel d'économies</h3>
+        <p>En changeant de syndic et en alignant vos honoraires sur le marché,<br>votre copropriété économiserait sur 3 ans :</p>
+      </div>
+      <div class="savings-right">
+        <div class="savings-big">${fmt(triSaving)}€</div>
+        <div class="savings-period">sur 3 ans · ${fmt(annualSaving)}€/an</div>
+      </div>
+    `;
+    document.getElementById('savingsSection').style.display = 'grid';
+  } else {
+    document.getElementById('savingsSection').style.display = 'none';
+  }
+
+  // CTA
+  const ctaMsg = annualSaving > 0
+    ? `Votre copropriété paie <strong>${fmt(annualSaving)}€ de trop par an</strong>. Recevez 2 devis de syndics certifiés dans le ${dep} et comparez.`
+    : `Votre contrat est dans la moyenne. Une mise en concurrence peut révéler des offres encore plus compétitives.`;
+
+  document.getElementById('ctaSection').innerHTML = `
+    <div class="cta-block">
+      <div class="cta-top">
+        <div class="cta-top-icon">📋</div>
+        <div class="cta-top-text">
+          <h3>Recevez 2 devis de syndics alternatifs gratuits</h3>
+          <p>Syndics certifiés dans votre département · Réponse sous 48h</p>
+        </div>
+      </div>
+      <div class="cta-body" id="ctaBody">
+        <p style="font-size:15px;color:var(--ink2);line-height:1.7;margin-bottom:16px">${ctaMsg}</p>
+        <div class="cta-checks">
+          <span>✓ 2 devis comparatifs gratuits</span>
+          <span>✓ Syndics certifiés</span>
+          <span>✓ Réponse sous 48h</span>
+          <span>✓ Sans engagement</span>
+        </div>
+        <div class="cta-fields">
+          <div>
+            <div class="form-label" style="margin-bottom:5px">Prénom & Nom</div>
+            <input class="cta-input" id="cta-name" type="text" placeholder="Jean Martin">
+          </div>
+          <div>
+            <div class="form-label" style="margin-bottom:5px">Téléphone</div>
+            <input class="cta-input" id="cta-tel" type="tel" placeholder="06 12 34 56 78">
+          </div>
+        </div>
+        <div>
+          <div class="form-label" style="margin-bottom:5px">Email</div>
+          <input class="cta-input" id="cta-email" type="email" placeholder="jean@email.com" style="width:100%">
+        </div>
+        <button class="cta-btn" onclick="submitCTA()">Recevoir mes 2 devis gratuits →</button>
+        <div class="cta-legal">Gratuit · Sans engagement · Données transmises uniquement aux syndics sélectionnés dans le ${dep}</div>
+      </div>
+    </div>
+  `;
+
+  document.getElementById('loadingSection').style.display = 'none';
+  document.getElementById('resultsSection').style.display = 'block';
+  document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+async function submitCTA() {
+  const n = document.getElementById('cta-name')?.value?.trim();
+  const t = document.getElementById('cta-tel')?.value?.trim();
+  const e = document.getElementById('cta-email')?.value?.trim();
+  if (!n || !t || !e) { alert('Merci de remplir tous les champs.'); return; }
+
+  const btn = document.querySelector('.cta-btn');
+  btn.disabled = true; btn.textContent = 'Envoi en cours…';
+
+  const { dep, depName, lots, chg, mktRef, annualSaving, triSaving } = currentData;
+
+  try {
+    const r = await fetch('https://formspree.io/f/mlgynwkz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: n, tel: t, email: e,
+        departement: `${dep} — ${depName}`,
+        lots: lots,
+        honoraires_actuels: `${chg}€/lot/an`,
+        marche_moyen: `${mktRef}€/lot/an`,
+        economies_potentielles: `${annualSaving}€/an`,
+        _subject: `Lead FranceSyndic — ${depName} (${dep}) · ${lots} lots · Éco. ${annualSaving}€/an`
+      })
+    });
+    if (r.ok) {
+      document.getElementById('ctaBody').innerHTML = `
+        <div class="cta-success">
+          <div style="font-size:48px;margin-bottom:14px">✓</div>
+          <h3>Demande envoyée</h3>
+          <p>Vous recevrez 2 devis de syndics certifiés dans le département ${dep} sous 48h.</p>
+        </div>`;
+    } else {
+      btn.disabled = false; btn.textContent = 'Recevoir mes 2 devis gratuits →';
+      alert('Une erreur est survenue. Merci de réessayer.');
+    }
+  } catch {
+    btn.disabled = false; btn.textContent = 'Recevoir mes 2 devis gratuits →';
+    alert('Une erreur est survenue. Merci de réessayer.');
+  }
+}
+
+function resetView() {
+  document.getElementById('heroSection').style.opacity = '1';
+  document.getElementById('heroSection').style.pointerEvents = '';
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = 'none';
+  ['inp-dep','inp-lots','inp-charges'].forEach(id => document.getElementById(id).value = '');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+</body>
+</html>
