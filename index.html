@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>France Syndic — Votre syndic est-il vraiment performant ?</title>
+<meta name="description" content="Diagnostic gratuit en 60 secondes : prix, réactivité, transparence. Comparez votre syndic avec 558 827 copropriétés françaises et recevez 2 devis d'alternatives.">
+<link rel="canonical" href="https://francesyndic.fr/">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#112233;--ink2:#1e2a3a;--paper:#f8f9fb;--paper2:#edf1f5;
+  --accent:#0033a0;--accent2:#c93f1c;--muted:#5f6e80;
+  --border:rgba(17,34,51,0.15);--green:#1a7a52;--orange:#c47a1a;
+  --red:#c4291a;--card:#ffffff;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:'Outfit',sans-serif;font-size:16px;line-height:1.6;min-height:100vh}
+
+.site-header{border-bottom:2px solid var(--ink);padding:0 24px;background:var(--paper);position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,51,160,0.08)}
+.header-inner{max-width:760px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.site-logo{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:700;color:var(--ink);letter-spacing:-0.5px;text-decoration:none}
+.site-logo span{color:var(--accent)}
+.header-trust{font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.trust-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:blink 2s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+
+.main{max-width:760px;margin:0 auto;padding:0 24px 80px}
+
+.hero{padding:56px 0 36px;text-align:center;border-bottom:1px solid var(--border);margin-bottom:0}
+.hero-eyebrow{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:18px;display:flex;align-items:center;justify-content:center;gap:8px}
+.hero-eyebrow::before,.hero-eyebrow::after{content:'';width:20px;height:2px;background:var(--accent)}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(30px,5vw,46px);font-weight:700;line-height:1.12;margin-bottom:18px;color:var(--ink)}
+.hero h1 .accent{color:var(--accent)}
+.hero p{font-size:15px;color:var(--muted);line-height:1.7;max-width:480px;margin:0 auto 24px}
+.hero-stats{display:flex;justify-content:center;gap:0;border:1px solid var(--border);max-width:480px;margin:0 auto}
+.hero-stat{flex:1;padding:14px 8px;text-align:center;border-right:1px solid var(--border)}
+.hero-stat:last-child{border-right:none}
+.hero-stat-v{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:500;color:var(--accent)}
+.hero-stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:2px}
+.start-btn{margin-top:28px;background:var(--accent);color:#fff;border:none;padding:18px 40px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.start-btn:hover{background:var(--ink);transform:translateY(-1px)}
+.start-note{font-size:12px;color:var(--muted);margin-top:12px}
+
+.quiz-section{display:none;padding:40px 0}
+.progress-wrap{margin-bottom:36px}
+.progress-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden;margin-bottom:8px}
+.progress-fill{height:100%;background:var(--accent);border-radius:2px;transition:width .4s ease;width:20%}
+.progress-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1px;display:flex;justify-content:space-between}
+
+.quiz-step{display:none}
+.quiz-step.active{display:block;animation:fadeIn .3s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.quiz-q{font-family:'Cormorant Garamond',serif;font-size:clamp(24px,3.5vw,32px);font-weight:700;color:var(--ink);margin-bottom:8px;line-height:1.2}
+.quiz-sub{font-size:14px;color:var(--muted);margin-bottom:28px;line-height:1.6}
+
+.form-input{border:2px solid var(--ink);padding:16px 18px;font-family:'Outfit',sans-serif;font-size:16px;color:var(--ink);background:var(--card);width:100%;outline:none;transition:.2s;-webkit-appearance:none}
+.form-input:focus{border-color:var(--accent)}
+select.form-input{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6' fill='%23112233'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 16px center;padding-right:40px}
+
+.warn-box{font-size:12px;color:var(--muted);background:var(--paper2);padding:12px 14px;margin-top:12px;line-height:1.5;border-left:3px solid var(--accent)}
+
+.choice-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:8px}
+.choice-btn{display:flex;align-items:center;gap:14px;border:2px solid var(--border);padding:16px 18px;background:var(--card);cursor:pointer;transition:.15s;text-align:left}
+.choice-btn:hover{border-color:var(--accent);background:var(--paper2)}
+.choice-btn.selected{border-color:var(--accent);background:rgba(0,51,160,0.05)}
+.choice-icon{font-size:22px;flex-shrink:0}
+.choice-text{flex:1}
+.choice-text strong{display:block;font-size:14px;font-weight:600;color:var(--ink)}
+.choice-text span{font-size:12px;color:var(--muted)}
+
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:32px}
+.btn-next{background:var(--accent);color:#fff;border:none;padding:15px 32px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;cursor:pointer;transition:.2s}
+.btn-next:hover{background:var(--ink)}
+.btn-next:disabled{opacity:.35;cursor:not-allowed}
+.btn-back{background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;display:flex;align-items:center;gap:6px}
+.btn-back:hover{color:var(--ink)}
+
+.loading-section{display:none;padding:70px 0;text-align:center}
+.loading-bar-wrap{width:260px;height:3px;background:var(--border);margin:24px auto;border-radius:2px;overflow:hidden}
+.loading-bar-fill{height:100%;background:var(--accent);border-radius:2px;animation:loadbar 1.6s ease-in-out infinite}
+@keyframes loadbar{0%{width:0;margin-left:0}50%{width:60%;margin-left:20%}100%{width:0;margin-left:100%}}
+.loading-label{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);margin-bottom:6px}
+.loading-sub{font-size:13px;color:var(--muted)}
+
+.results-section{display:none}
+.results-masthead{padding:36px 0 24px;text-align:center;border-bottom:2px solid var(--ink);margin-bottom:28px}
+.results-kicker{font-size:11px;text-transform:uppercase;letter-spacing:2px;color:var(--accent);font-weight:600;margin-bottom:10px}
+.results-headline{font-family:'Cormorant Garamond',serif;font-size:clamp(26px,4vw,38px);font-weight:700;line-height:1.15}
+
+.score-band{background:var(--ink);color:#fff;padding:28px 24px;display:flex;align-items:center;gap:20px;margin-bottom:24px}
+.score-letter{font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:700;line-height:1;flex-shrink:0}
+.score-letter.good{color:#52d68a}.score-letter.medium{color:#f5a623}.score-letter.bad{color:#ff6b6b}
+.score-info h2{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;margin-bottom:4px}
+.score-info p{font-size:13px;color:rgba(247,245,240,.65);line-height:1.5}
+
+.breakdown-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--border);border:1px solid var(--border);margin-bottom:24px}
+.bd-cell{background:var(--card);padding:18px}
+.bd-label{font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.bd-value{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:500;color:var(--ink);margin-bottom:6px}
+.bd-badge{display:inline-block;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;padding:3px 9px;border-radius:2px}
+.badge-good{background:rgba(26,122,82,.1);color:var(--green)}
+.badge-medium{background:rgba(196,122,26,.1);color:var(--orange)}
+.badge-bad{background:rgba(196,41,26,.08);color:var(--red)}
+
+.flags-section{border:2px solid var(--red);margin-bottom:24px;display:none}
+.flags-header{background:var(--red);color:#fff;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:700;display:flex;align-items:center;gap:10px}
+.flags-body{padding:18px 20px}
+.flags-body ul{list-style:none}
+.flags-body li{font-size:14px;color:var(--ink2);padding:8px 0;border-bottom:1px solid var(--border);display:flex;align-items:start;gap:10px}
+.flags-body li:last-child{border-bottom:none}
+.flag-icon{color:var(--red);flex-shrink:0;font-weight:700}
+
+.savings-section{background:var(--ink2);color:#fff;padding:24px;margin-bottom:24px;text-align:center;display:none}
+.savings-section h3{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;margin-bottom:6px}
+.savings-big{font-family:'JetBrains Mono',monospace;font-size:38px;font-weight:500;color:#52d68a;margin:8px 0 4px}
+.savings-sub{font-size:12px;color:rgba(255,255,255,.5)}
+
+.urgency-banner{background:rgba(196,122,26,.08);border:1px solid var(--orange);padding:14px 18px;margin-bottom:24px;display:flex;align-items:center;gap:12px;font-size:13px;color:var(--ink2)}
+.urgency-icon{font-size:20px;flex-shrink:0}
+
+.cta-block{border:2px solid var(--ink);margin-bottom:24px;overflow:hidden}
+.cta-top{background:var(--accent);padding:22px 24px}
+.cta-top h3{font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:700;color:#fff;line-height:1.25;margin-bottom:4px}
+.cta-top p{font-size:13px;color:rgba(255,255,255,.7)}
+.cta-body{padding:22px 24px}
+.cta-checks{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:18px;background:var(--paper2);padding:13px 15px;border-left:3px solid var(--accent)}
+.cta-checks span{font-size:12.5px;color:var(--ink2)}
+.cta-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.cta-input{width:100%;padding:13px 15px;border:1.5px solid var(--border);font-family:'Outfit',sans-serif;font-size:14px;color:var(--ink);outline:none;transition:.2s;background:#fff}
+.cta-input:focus{border-color:var(--accent)}
+.cta-btn{width:100%;padding:16px;background:var(--accent);color:#fff;font-family:'Outfit',sans-serif;font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:1px;border:none;cursor:pointer;margin-top:8px;transition:.2s}
+.cta-btn:hover{background:var(--ink)}
+.cta-legal{font-size:11px;color:var(--muted);margin-top:8px;text-align:center}
+.cta-success{padding:36px 24px;text-align:center}
+.cta-success h3{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--green);margin-bottom:8px}
+.cta-success p{font-size:14px;color:var(--muted)}
+
+.proof-section{padding:20px;text-align:center;border:1px solid var(--border);margin-bottom:24px;background:var(--paper2)}
+.proof-section p{font-size:13px;color:var(--ink2);line-height:1.6}
+.proof-section strong{color:var(--accent)}
+
+.back-btn{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font-size:13px;cursor:pointer;text-decoration:none;margin-top:4px;padding:10px 0;border:none;background:none;font-family:'Outfit',sans-serif}
+.back-btn:hover{color:var(--accent)}
+
+.how-section{border:1px solid var(--border);margin-bottom:24px}
+.how-header{background:var(--ink2);color:#fff;padding:14px 20px;font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:700}
+.how-body{padding:20px}
+.how-step{border-left:3px solid var(--accent);padding-left:14px;margin-bottom:16px}
+.how-step:last-child{margin-bottom:0}
+.how-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent);font-weight:500;margin-bottom:4px;text-transform:uppercase;letter-spacing:1px}
+.how-step h4{font-size:14px;font-weight:600;margin-bottom:3px}
+.how-step p{font-size:13px;color:var(--muted);line-height:1.55}
+
+.site-footer{border-top:2px solid var(--ink);padding:24px;text-align:center}
+.footer-text{font-size:11px;color:var(--muted);line-height:1.8;max-width:760px;margin:0 auto}
+.footer-text a{color:var(--accent);text-decoration:none}
+
+@media(max-width:560px){
+  .cta-fields,.cta-checks,.breakdown-grid,.hero-stats{grid-template-columns:1fr}
+  .hero-stats{flex-direction:column}
+  .hero-stat{border-right:none;border-bottom:1px solid var(--border)}
+  .hero-stat:last-child{border-bottom:none}
+  .score-band{flex-wrap:wrap}
+}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="/" class="site-logo">France <span>Syndic</span></a>
+    <div class="header-trust"><span class="trust-dot"></span>558 827 copropriétés analysées</div>
+  </div>
+</header>
+
+<div class="main">
+
+  <div class="hero" id="heroSection">
+    <div class="hero-eyebrow">Diagnostic gratuit</div>
+    <h1>Votre syndic est-il<br><span class="accent">vraiment</span> performant ?</h1>
+    <p>Prix, réactivité, transparence des comptes. En 60 secondes, comparez votre syndic à 558 827 copropriétés françaises — et découvrez s'il est temps d'agir.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><div class="hero-stat-v">1 sur 2</div><div class="hero-stat-l">Un Français sur deux ne sait pas ce qu'il paie</div></div>
+      <div class="hero-stat"><div class="hero-stat-v">60s</div><div class="hero-stat-l">pour le diagnostic</div></div>
+      <div class="hero-stat"><div class="hero-stat-v">Gratuit</div><div class="hero-stat-l">sans engagement</div></div>
+    </div>
+    <button class="start-btn" onclick="startQuiz()">Démarrer mon diagnostic →</button>
+    <div class="start-note">Aucune carte bancaire requise · Résultat immédiat</div>
+  </div>
+
+  <div class="quiz-section" id="quizSection">
+    <div class="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+      <div class="progress-label"><span id="progressText">Étape 1 sur 5</span><span id="progressPct">20%</span></div>
+    </div>
+
+    <div class="quiz-step active" data-step="1">
+      <div class="quiz-q">Où se situe votre copropriété ?</div>
+      <div class="quiz-sub">Les tarifs varient fortement selon la région.</div>
+      <select class="form-input" id="inp-dep">
+        <option value="">Sélectionnez votre département</option>
+        <option value="01">01 — Ain</option><option value="02">02 — Aisne</option>
+        <option value="03">03 — Allier</option><option value="06">06 — Alpes-Maritimes</option>
+        <option value="13">13 — Bouches-du-Rhône</option><option value="14">14 — Calvados</option>
+        <option value="17">17 — Charente-Maritime</option><option value="21">21 — Côte-d'Or</option>
+        <option value="25">25 — Doubs</option><option value="29">29 — Finistère</option>
+        <option value="31">31 — Haute-Garonne</option><option value="33">33 — Gironde</option>
+        <option value="34">34 — Hérault</option><option value="35">35 — Ille-et-Vilaine</option>
+        <option value="38">38 — Isère</option><option value="44">44 — Loire-Atlantique</option>
+        <option value="45">45 — Loiret</option><option value="49">49 — Maine-et-Loire</option>
+        <option value="51">51 — Marne</option><option value="54">54 — Meurthe-et-Moselle</option>
+        <option value="57">57 — Moselle</option><option value="59">59 — Nord</option>
+        <option value="60">60 — Oise</option><option value="62">62 — Pas-de-Calais</option>
+        <option value="63">63 — Puy-de-Dôme</option><option value="67">67 — Bas-Rhin</option>
+        <option value="68">68 — Haut-Rhin</option><option value="69">69 — Métropole de Lyon</option>
+        <option value="75">75 — Paris</option><option value="76">76 — Seine-Maritime</option>
+        <option value="77">77 — Seine-et-Marne</option><option value="78">78 — Yvelines</option>
+        <option value="80">80 — Somme</option><option value="83">83 — Var</option>
+        <option value="84">84 — Vaucluse</option><option value="91">91 — Essonne</option>
+        <option value="92">92 — Hauts-de-Seine</option><option value="93">93 — Seine-Saint-Denis</option>
+        <option value="94">94 — Val-de-Marne</option><option value="95">95 — Val-d'Oise</option>
+        <option value="other">Autre département</option>
+      </select>
+    </div>
+
+    <div class="quiz-step" data-step="2">
+      <div class="quiz-q">Combien de lots compte votre copropriété ?</div>
+      <div class="quiz-sub">Appartements, caves, parkings — le nombre total de lots principaux et secondaires.</div>
+      <input class="form-input" id="inp-lots" type="number" placeholder="ex: 24" min="2" max="999">
+    </div>
+
+    <div class="quiz-step" data-step="3">
+      <div class="quiz-q">Quels sont les honoraires de votre syndic ?</div>
+      <div class="quiz-sub">Le montant annuel par lot, visible sur votre appel de fonds — ligne "rémunération du syndic". Pas vos charges totales (chauffage, eau, ascenseur…).</div>
+      <input class="form-input" id="inp-charges" type="number" placeholder="ex: 220 €/lot/an" min="50" max="2000">
+      <div style="text-align:center;margin:14px 0;font-size:13px;color:var(--muted)">— ou —</div>
+      <div class="choice-grid">
+        <div class="choice-btn" id="dontknow-charges" data-value="unknown"><div class="choice-icon">🤷</div><div class="choice-text"><strong>Je ne sais pas exactement</strong><span>Pas de souci, on estimera à partir de votre profil</span></div></div>
+      </div>
+    </div>
+
+    <div class="quiz-step" data-step="4">
+      <div class="quiz-q">Votre syndic répond-il rapidement ?</div>
+      <div class="quiz-sub">Pour une demande simple ou un incident signalé.</div>
+      <div class="choice-grid" id="choice-reactivite">
+        <div class="choice-btn" data-value="good"><div class="choice-icon">⚡</div><div class="choice-text"><strong>Sous 48h</strong><span>Réponse rapide et fiable</span></div></div>
+        <div class="choice-btn" data-value="medium"><div class="choice-icon">⏳</div><div class="choice-text"><strong>Plusieurs jours</strong><span>Délais variables</span></div></div>
+        <div class="choice-btn" data-value="bad"><div class="choice-icon">🚫</div><div class="choice-text"><strong>Je n'ai jamais de réponse claire</strong><span>Relances fréquentes nécessaires</span></div></div>
+      </div>
+    </div>
+
+    <div class="quiz-step" data-step="5">
+      <div class="quiz-q">Vos comptes et AG sont-ils bien tenus ?</div>
+      <div class="quiz-sub">Deux dernières questions.</div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Comptes annuels</div>
+      <div class="choice-grid" id="choice-comptes" style="margin-bottom:24px">
+        <div class="choice-btn" data-value="good"><div class="choice-icon">✓</div><div class="choice-text"><strong>Toujours à temps</strong><span>Reçus dans les délais légaux</span></div></div>
+        <div class="choice-btn" data-value="bad"><div class="choice-icon">⚠</div><div class="choice-text"><strong>Souvent en retard ou confus</strong><span>Difficiles à comprendre</span></div></div>
+      </div>
+      <div style="font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Assemblée générale</div>
+      <div class="choice-grid" id="choice-ag">
+        <div class="choice-btn" data-value="good"><div class="choice-icon">✓</div><div class="choice-text"><strong>Toujours tenue à temps</strong><span>Convocation et tenue régulières</span></div></div>
+        <div class="choice-btn" data-value="bad"><div class="choice-icon">⚠</div><div class="choice-text"><strong>Déjà reportée ou mal organisée</strong><span>Difficultés de convocation</span></div></div>
+      </div>
+    </div>
+
+    <div class="quiz-nav">
+      <button class="btn-back" id="btnBack" onclick="prevStep()" style="visibility:hidden">← Retour</button>
+      <button class="btn-next" id="btnNext" onclick="nextStep()" disabled>Continuer →</button>
+    </div>
+  </div>
+
+  <div class="loading-section" id="loadingSection">
+    <div class="loading-label">Analyse de votre situation…</div>
+    <div class="loading-bar-wrap"><div class="loading-bar-fill"></div></div>
+    <div class="loading-sub">Comparaison avec les copropriétés similaires</div>
+  </div>
+
+  <div class="results-section" id="resultsSection">
+    <div class="results-masthead">
+      <div class="results-kicker" id="rKicker"></div>
+      <div class="results-headline" id="rHeadline"></div>
+    </div>
+
+    <div class="score-band" id="scoreBand"></div>
+    <div class="breakdown-grid" id="breakdownGrid"></div>
+
+    <div class="flags-section" id="flagsSection">
+      <div class="flags-header">⚠ Signaux d'alerte détectés</div>
+      <div class="flags-body"><ul id="flagsList"></ul></div>
+    </div>
+
+    <div class="savings-section" id="savingsSection"></div>
+
+    <div class="urgency-banner" id="urgencyBanner">
+      <div class="urgency-icon">📅</div>
+      <div>Pour changer de syndic, le point doit être inscrit à l'ordre du jour <strong>au moins 21 jours avant votre prochaine AG</strong>. Plus tôt vous obtenez des devis, plus vous avez d'options.</div>
+    </div>
+
+    <div id="ctaSection"></div>
+
+    <div class="proof-section">
+      <p>En France, <strong>10 millions de logements</strong> sont en copropriété — un tiers du parc résidentiel. Et près d'<strong>un copropriétaire sur deux</strong> ne sait pas précisément ce qu'il paie à son syndic.</p>
+    </div>
+
+    <div class="how-section">
+      <div class="how-header">📋 Comment changer de syndic ?</div>
+      <div class="how-body">
+        <div class="how-step">
+          <div class="how-num">Étape 01</div>
+          <h4>Obtenez 2-3 devis</h4>
+          <p>La mise en concurrence est une obligation légale à chaque renouvellement de mandat.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">Étape 02</div>
+          <h4>Inscrivez-le à l'ordre du jour</h4>
+          <p>Au moins 21 jours avant l'AG. Un seul copropriétaire peut en faire la demande, sans accord préalable du conseil syndical.</p>
+        </div>
+        <div class="how-step">
+          <div class="how-num">Étape 03</div>
+          <h4>Votez en AG</h4>
+          <p>Majorité absolue (article 25). Le changement est gratuit — aucun frais de transfert ne peut être facturé par le syndic sortant.</p>
+        </div>
+      </div>
+    </div>
+
+    <button class="back-btn" onclick="resetView()">← Refaire le diagnostic</button>
+  </div>
+
+</div>
+
+<footer class="site-footer">
+  <div class="footer-text">
+    <strong>France Syndic</strong> · Observatoire indépendant des charges de copropriété en France<br>
+    Données de marché 2026 · <a href="https://francesyndic.fr">francesyndic.fr</a>
+  </div>
+</footer>
+
+<script>
+let currentStep = 1;
+const TOTAL_STEPS = 5;
+const answers = { dep:'', lots:0, charges:0, chargesUnknown:false, reactivite:'', comptes:'', ag:'' };
+
+function setupChoiceGroup(groupId, answerKey) {
+  const group = document.getElementById(groupId);
+  if (!group) return;
+  group.querySelectorAll('.choice-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      group.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      answers[answerKey] = btn.dataset.value;
+      validateStep();
+    });
+  });
+}
+setupChoiceGroup('choice-reactivite', 'reactivite');
+setupChoiceGroup('choice-comptes', 'comptes');
+setupChoiceGroup('choice-ag', 'ag');
+
+document.getElementById('inp-dep').addEventListener('change', validateStep);
+document.getElementById('inp-lots').addEventListener('input', validateStep);
+document.getElementById('inp-charges').addEventListener('input', () => {
+  document.getElementById('dontknow-charges').classList.remove('selected');
+  answers.chargesUnknown = false;
+  validateStep();
+});
+document.getElementById('dontknow-charges').addEventListener('click', () => {
+  document.getElementById('inp-charges').value = '';
+  document.getElementById('dontknow-charges').classList.add('selected');
+  answers.chargesUnknown = true;
+  validateStep();
+});
+
+function validateStep() {
+  const btn = document.getElementById('btnNext');
+  let valid = false;
+  if (currentStep === 1) valid = !!document.getElementById('inp-dep').value;
+  if (currentStep === 2) valid = parseInt(document.getElementById('inp-lots').value) >= 2;
+  if (currentStep === 3) valid = parseFloat(document.getElementById('inp-charges').value) >= 50 || answers.chargesUnknown;
+  if (currentStep === 4) valid = !!answers.reactivite;
+  if (currentStep === 5) valid = !!answers.comptes && !!answers.ag;
+  btn.disabled = !valid;
+}
+
+function startQuiz() {
+  document.getElementById('heroSection').style.display = 'none';
+  document.getElementById('quizSection').style.display = 'block';
+  updateProgress();
+}
+
+function updateProgress() {
+  const pct = Math.round((currentStep / TOTAL_STEPS) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `Étape ${currentStep} sur ${TOTAL_STEPS}`;
+  document.getElementById('progressPct').textContent = pct + '%';
+  document.getElementById('btnBack').style.visibility = currentStep === 1 ? 'hidden' : 'visible';
+  document.getElementById('btnNext').textContent = currentStep === TOTAL_STEPS ? 'Voir mon diagnostic →' : 'Continuer →';
+  validateStep();
+}
+
+function nextStep() {
+  if (currentStep === 3 && !answers.chargesUnknown) {
+    const chg = parseFloat(document.getElementById('inp-charges').value);
+    if (chg > 600) {
+      const ok = confirm(`${chg}€/lot/an semble élevé pour des honoraires de syndic seuls (moyenne nationale : 150-300€/lot/an).\n\nAvez-vous bien indiqué les HONORAIRES DU SYNDIC, et non vos charges totales (chauffage, eau, ascenseur...) ?\n\n"Annuler" pour corriger, "OK" pour continuer.`);
+      if (!ok) return;
+    }
+  }
+  if (currentStep < TOTAL_STEPS) {
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep++;
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+  } else {
+    submitQuiz();
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.remove('active');
+    currentStep--;
+    document.querySelector(`.quiz-step[data-step="${currentStep}"]`).classList.add('active');
+    updateProgress();
+  }
+}
+
+function getMarketRef(lots) {
+  if (lots <= 5)  return 430;
+  if (lots <= 10) return 320;
+  if (lots <= 20) return 240;
+  if (lots <= 35) return 195;
+  if (lots <= 60) return 160;
+  if (lots <= 100) return 140;
+  return 118;
+}
+function getMultiplier(dep) {
+  const paris = ['75','92','93','94'];
+  const idfOuter = ['77','78','91','95'];
+  const bigCities = ['06','13','31','33','34','38','44','59','67','69','76','83'];
+  if (paris.includes(dep)) return 1.38;
+  if (idfOuter.includes(dep)) return 1.22;
+  if (bigCities.includes(dep)) return 1.12;
+  return 1.0;
+}
+const DEP_NAMES = {'01':'Ain','02':'Aisne','03':'Allier','06':'Alpes-Maritimes','13':'Bouches-du-Rhône','14':'Calvados','17':'Charente-Maritime','21':"Côte-d'Or",'25':'Doubs','29':'Finistère','31':'Haute-Garonne','33':'Gironde','34':'Hérault','35':'Ille-et-Vilaine','38':'Isère','44':'Loire-Atlantique','45':'Loiret','49':'Maine-et-Loire','51':'Marne','54':'Meurthe-et-Moselle','57':'Moselle','59':'Nord','60':'Oise','62':'Pas-de-Calais','63':'Puy-de-Dôme','67':'Bas-Rhin','68':'Haut-Rhin','69':'Métropole de Lyon','75':'Paris','76':'Seine-Maritime','77':'Seine-et-Marne','78':'Yvelines','80':'Somme','83':'Var','84':'Vaucluse','91':'Essonne','92':'Hauts-de-Seine','93':'Seine-Saint-Denis','94':'Val-de-Marne','95':"Val-d'Oise",'other':'votre département'};
+
+function fmt(n){ return n.toLocaleString('fr-FR'); }
+
+function submitQuiz() {
+  answers.dep = document.getElementById('inp-dep').value;
+  answers.lots = parseInt(document.getElementById('inp-lots').value);
+  answers.charges = answers.chargesUnknown ? null : parseFloat(document.getElementById('inp-charges').value);
+
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('loadingSection').style.display = 'block';
+
+  setTimeout(renderResults, 1400);
+}
+
+let currentResultData = {};
+
+function renderResults() {
+  const { dep, lots, charges, chargesUnknown, reactivite, comptes, ag } = answers;
+  const depName = DEP_NAMES[dep] || dep;
+  const mult = getMultiplier(dep);
+  const mktRef = Math.round(getMarketRef(lots) * mult);
+
+  let ratio = 1, annualSaving = 0, triSaving = 0, priceScore = 'medium';
+  if (!chargesUnknown) {
+    ratio = charges / mktRef;
+    annualSaving = Math.round((charges - mktRef) * lots);
+    triSaving = annualSaving * 3;
+    priceScore = ratio >= 1.40 ? 'bad' : ratio >= 1.15 ? 'medium' : 'good';
+  }
+
+  const reactScore = reactivite;
+  const comptesScore = comptes === 'good' ? 'good' : 'bad';
+  const agScore = ag === 'good' ? 'good' : 'bad';
+
+  const scoreMap = { good:0, medium:1, bad:2 };
+  // when price unknown, don't penalize but don't reward either — weight remaining 3 dimensions more
+  const totalBad = (chargesUnknown ? 0 : scoreMap[priceScore]) + scoreMap[reactScore] + scoreMap[comptesScore] + scoreMap[agScore];
+  const maxBad = chargesUnknown ? 6 : 8; // 3 dims x2 vs 4 dims x2 max severity
+  const ratioBad = totalBad / maxBad;
+
+  let overall, overallCls, overallLabel, overallDesc;
+  if (ratioBad === 0) { overall='A'; overallCls='good'; overallLabel='Bon syndic'; overallDesc=chargesUnknown ? 'Réactivité, comptes et AG sont au rendez-vous. Vérifiez aussi le prix pour confirmer.' : 'Prix, réactivité et transparence sont tous au rendez-vous. Continuez ainsi.'; }
+  else if (ratioBad <= 0.3) { overall='B'; overallCls='good'; overallLabel='Plutôt bon syndic'; overallDesc='Globalement satisfaisant, avec un ou deux points à surveiller.'; }
+  else if (ratioBad <= 0.6) { overall='C'; overallCls='medium'; overallLabel='Syndic perfectible'; overallDesc="Plusieurs signaux indiquent qu'une mise en concurrence serait utile."; }
+  else { overall='D'; overallCls='bad'; overallLabel='Syndic à risque'; overallDesc='Plusieurs défaillances cumulées. Une mise en concurrence est fortement recommandée.'; }
+
+  document.getElementById('rKicker').textContent = `📍 ${depName} (${dep}) · ${lots} lots`;
+  document.getElementById('rHeadline').textContent = overallLabel;
+
+  document.getElementById('scoreBand').innerHTML = `
+    <div class="score-letter ${overallCls}">${overall}</div>
+    <div class="score-info"><h2>${overallLabel}</h2><p>${overallDesc}</p></div>
+  `;
+
+  const badgeOf = s => s==='good' ? ['badge-good','Bon'] : s==='medium' ? ['badge-medium','Moyen'] : ['badge-bad','À risque'];
+  const [reactBadge, reactLabel] = badgeOf(reactScore);
+  const [comptesBadge, comptesLabel] = badgeOf(comptesScore);
+  const [agBadge, agLabel] = badgeOf(agScore);
+
+  let priceCell;
+  if (chargesUnknown) {
+    priceCell = `
+    <div class="bd-cell">
+      <div class="bd-label">💰 Prix</div>
+      <div class="bd-value" style="font-size:15px">Non renseigné</div>
+      <span class="bd-badge badge-medium">À vérifier · réf. marché ${fmt(mktRef)}€</span>
+    </div>`;
+  } else {
+    const [priceBadge, priceLabel] = badgeOf(priceScore);
+    priceCell = `
+    <div class="bd-cell">
+      <div class="bd-label">💰 Prix</div>
+      <div class="bd-value">${fmt(charges)}€<span style="font-size:11px;color:var(--muted)">/lot/an</span></div>
+      <span class="bd-badge ${priceBadge}">${priceLabel} · marché ${fmt(mktRef)}€</span>
+    </div>`;
+  }
+
+  document.getElementById('breakdownGrid').innerHTML = `
+    ${priceCell}
+    <div class="bd-cell">
+      <div class="bd-label">⚡ Réactivité</div>
+      <div class="bd-value" style="font-size:15px">${reactivite==='good'?'Rapide':reactivite==='medium'?'Variable':'Insuffisante'}</div>
+      <span class="bd-badge ${reactBadge}">${reactLabel}</span>
+    </div>
+    <div class="bd-cell">
+      <div class="bd-label">📊 Comptes</div>
+      <div class="bd-value" style="font-size:15px">${comptes==='good'?'À jour':'Retards'}</div>
+      <span class="bd-badge ${comptesBadge}">${comptesLabel}</span>
+    </div>
+    <div class="bd-cell">
+      <div class="bd-label">🗳 Assemblées générales</div>
+      <div class="bd-value" style="font-size:15px">${ag==='good'?'Régulières':'Perturbées'}</div>
+      <span class="bd-badge ${agBadge}">${agLabel}</span>
+    </div>
+  `;
+
+  const flags = [];
+  if (chargesUnknown) flags.push("Vous ne savez pas exactement ce que vous payez votre syndic — c'est le cas d'un copropriétaire sur deux en France. C'est précisément le moment de vérifier.");
+  if (!chargesUnknown && priceScore !== 'good') flags.push(`Vos honoraires sont ${priceScore==='bad'?'significativement':'légèrement'} au-dessus du marché pour votre département et la taille de votre copropriété.`);
+  if (reactivite === 'bad') flags.push("Votre syndic n'apporte pas de réponse claire à vos demandes — un signal classique de désengagement.");
+  if (reactivite === 'medium') flags.push("Les délais de réponse de votre syndic sont irréguliers.");
+  if (comptes === 'bad') flags.push("Vos comptes annuels sont en retard ou peu lisibles — un manque de transparence comptable est l'un des trois premiers motifs de changement de syndic en France.");
+  if (ag === 'bad') flags.push("Vos assemblées générales ont déjà été reportées ou mal organisées.");
+
+  if (flags.length > 0) {
+    document.getElementById('flagsList').innerHTML = flags.map(f => `<li><span class="flag-icon">✕</span>${f}</li>`).join('');
+    document.getElementById('flagsSection').style.display = 'block';
+  } else {
+    document.getElementById('flagsSection').style.display = 'none';
+  }
+
+  if (!chargesUnknown && annualSaving > 0) {
+    document.getElementById('savingsSection').innerHTML = `
+      <h3>Économies potentielles sur 3 ans</h3>
+      <div class="savings-big">${fmt(triSaving)}€</div>
+      <div class="savings-sub">soit ${fmt(annualSaving)}€/an en alignant vos honoraires sur le marché du ${dep}</div>
+    `;
+    document.getElementById('savingsSection').style.display = 'block';
+  } else {
+    document.getElementById('savingsSection').style.display = 'none';
+  }
+
+  const hasIssue = totalBad > 0 || chargesUnknown;
+  let ctaHeadline, ctaSub;
+  if (chargesUnknown) {
+    ctaHeadline = "Découvrez enfin ce que vous payez vraiment";
+    ctaSub = `Recevez 2 devis de syndics alternatifs dans le ${dep} — vous saurez immédiatement si vous êtes dans la moyenne du marché (${fmt(mktRef)}€/lot/an de référence).`;
+  } else if (annualSaving > 0) {
+    ctaHeadline = totalBad >= 3 ? "Votre copropriété mérite mieux" : "Une mise en concurrence peut faire la différence";
+    ctaSub = `Recevez 2 devis de syndics alternatifs dans le ${dep} — économies estimées : ${fmt(annualSaving)}€/an.`;
+  } else {
+    ctaHeadline = "Vérifiez que vous avez vraiment la meilleure offre";
+    ctaSub = `Recevez 2 devis de syndics alternatifs certifiés dans le ${dep}, sans engagement.`;
+  }
+
+  document.getElementById('ctaSection').innerHTML = `
+    <div class="cta-block">
+      <div class="cta-top">
+        <h3>${ctaHeadline}</h3>
+        <p>${ctaSub}</p>
+      </div>
+      <div class="cta-body" id="ctaBody">
+        <div class="cta-checks">
+          <span>✓ 2 devis gratuits</span>
+          <span>✓ Syndics certifiés</span>
+          <span>✓ Réponse sous 48h</span>
+          <span>✓ Sans engagement</span>
+        </div>
+        <div class="cta-fields">
+          <input class="cta-input" id="cta-name" type="text" placeholder="Prénom & Nom">
+          <input class="cta-input" id="cta-tel" type="tel" placeholder="Téléphone">
+        </div>
+        <input class="cta-input" id="cta-email" type="email" placeholder="Email" style="width:100%">
+        <button class="cta-btn" onclick="submitCTA()">Recevoir mes 2 devis gratuits →</button>
+        <div class="cta-legal">Gratuit · Sans engagement · Données transmises uniquement aux syndics sélectionnés dans le ${dep}</div>
+      </div>
+    </div>
+  `;
+
+  currentResultData = { dep, depName, lots, charges: chargesUnknown ? 'Non renseigné' : charges, mktRef, annualSaving, overall, totalBad };
+
+  document.getElementById('loadingSection').style.display = 'none';
+  document.getElementById('resultsSection').style.display = 'block';
+  document.getElementById('resultsSection').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+async function submitCTA() {
+  const n = document.getElementById('cta-name')?.value?.trim();
+  const t = document.getElementById('cta-tel')?.value?.trim();
+  const e = document.getElementById('cta-email')?.value?.trim();
+  if (!n || !t || !e) { alert('Merci de remplir tous les champs.'); return; }
+
+  const btn = document.querySelector('.cta-btn');
+  btn.disabled = true; btn.textContent = 'Envoi en cours…';
+
+  const { dep, depName, lots, charges, mktRef, annualSaving } = currentResultData;
+
+  try {
+    const r = await fetch('https://formspree.io/f/mlgynwkz', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({
+        name: n, tel: t, email: e,
+        departement: `${dep} — ${depName}`,
+        lots: lots,
+        honoraires_actuels: `${charges}€/lot/an`,
+        marche_moyen: `${mktRef}€/lot/an`,
+        economies_potentielles: `${annualSaving}€/an`,
+        reactivite: answers.reactivite,
+        comptes: answers.comptes,
+        ag: answers.ag,
+        _subject: `Lead FranceSyndic — ${depName} (${dep}) · ${lots} lots`
+      })
+    });
+    if (r.ok) {
+      document.getElementById('ctaBody').innerHTML = `
+        <div class="cta-success">
+          <div style="font-size:44px;margin-bottom:12px">✓</div>
+          <h3>Demande envoyée</h3>
+          <p>Vous recevrez 2 devis de syndics certifiés dans le département ${dep} sous 48h.</p>
+        </div>`;
+    } else {
+      btn.disabled = false; btn.textContent = 'Recevoir mes 2 devis gratuits →';
+      alert('Une erreur est survenue. Merci de réessayer.');
+    }
+  } catch {
+    btn.disabled = false; btn.textContent = 'Recevoir mes 2 devis gratuits →';
+    alert('Une erreur est survenue. Merci de réessayer.');
+  }
+}
+
+function resetView() {
+  currentStep = 1;
+  answers.dep=''; answers.lots=0; answers.charges=0; answers.chargesUnknown=false; answers.reactivite=''; answers.comptes=''; answers.ag='';
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.querySelector('.quiz-step[data-step="1"]').classList.add('active');
+  document.querySelectorAll('.choice-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('inp-dep').value = '';
+  document.getElementById('inp-lots').value = '';
+  document.getElementById('inp-charges').value = '';
+  document.getElementById('resultsSection').style.display = 'none';
+  document.getElementById('quizSection').style.display = 'none';
+  document.getElementById('heroSection').style.display = 'block';
+  document.getElementById('flagsSection').style.display = 'none';
+  document.getElementById('savingsSection').style.display = 'none';
+  window.scrollTo({ top:0, behavior:'smooth' });
+}
+</script>
+</body>
+</html>
